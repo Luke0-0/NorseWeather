@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Weather by the Gods</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     
 </head>
-<body>
-    <header>
-        <h1>Weather by the Gods</h1>
-        <input type="text" placeholder="Enter location" class="input">
-    </header>
 
-    <main>
+<body>
+    <div class="overlay"></div>
+    <main id="main">
         <div>
-            <h2 class="title">Weather by the Gods</h2>
-            <input type="text" placeholder="Enter location" class="inputTitle">
-            <button> <img src="search.png"></button>
-            
-            
+            <h2 id="title" class="title">Weather by the Gods</h2>
+            <input id="search" type="text" placeholder="Enter location" class="inputTitle">
+            <button id="button"> <img src="images/search.png"></button>
+        </div>
+
+        <div id="weather" class="weather-card">
+            <p class="city">Cape Town</p>
+            <p class="temp">22°c</p>
+            <p class="humidity">72% humidity</p>
+            <p class="wind">4 km/h</p>
+
         </div>
     </main>
 
- 
+    <script src="script.js"></script> <!-- Handle button -->
+
 </body>
 </html>
