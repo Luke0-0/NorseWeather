@@ -1,0 +1,41 @@
+/* Basic reset and styling */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: red;
+}
+
+/* Simple layout for header, main content, and footer */
+header {
+    background-image: linear-gradient(rgb(109, 70, 19), rgb(158, 110, 56));
+    padding: 10px;
+    color: white;
+    font-size: 10px;
+    height: 3rem;
+}
+
+main {
+    padding: 20px;
+    background-image: linear-gradient(300deg, rgb(160, 109, 39), rgb(57, 39, 19));
+    height: 100vh;
+}
+
+.weather-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    display: inline-block;
+    background-color: blue;
+}
+
+footer {
+    background-image: linear-gradient(rgb(109, 70, 19), rgb(176, 126, 69));
+    color: white;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 2rem;
+}
