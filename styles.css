@@ -1,14 +1,32 @@
+@font-face {
+    font-family: "greek";
+    src: url(Dalek.ttf);
+  }
+
+@font-face {
+    font-family: "greekSmall";
+    src: url(DOMINICA.TTF);
+}
+
+@font-face {
+    font-family: "roman";
+    src: url(Roman.ttf);
+}
+
 /* Basic reset and styling */
 body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color: red;
+    background-image: linear-gradient(180deg, rgb(27, 33, 59), rgb(57, 39, 19));
 }
 
 /* Simple layout for header, main content, and footer */
 header {
+    opacity: 0;
+    display: flex;
+    font-family: "greek";
     background-image: linear-gradient(rgb(109, 70, 19), rgb(158, 110, 56));
     padding: 10px;
     color: white;
@@ -16,10 +34,30 @@ header {
     height: 3rem;
 }
 
+.input {
+    margin-left: 1rem;
+}
+
 main {
     padding: 20px;
-    background-image: linear-gradient(300deg, rgb(160, 109, 39), rgb(57, 39, 19));
+    background-image: linear-gradient(180deg, rgb(27, 33, 59), rgb(57, 39, 19));
     height: 100vh;
+}
+
+.title {
+    font-family: "greek";
+    font-size: 4rem;
+    color: rgb(176, 126, 69);
+}
+
+.inputTitle {
+    border: 0;
+    outline: 0;
+    border-radius: 8px;
+    font-size: 35px;
+    background-color: rgb(57, 39, 19);
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(202, 200, 200);
 }
 
 .weather-card {
