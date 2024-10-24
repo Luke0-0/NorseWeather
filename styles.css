@@ -44,21 +44,63 @@ main {
     height: 100vh;
 }
 
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slide {
+    100% { transform: translateY(0%); }
+
+}
+
+@keyframes slideSearch {
+    100% { transform: translateY(0%) translateX(-140%); }
+
+}
+
 .title {
+    opacity: 0;
     font-family: "greek";
-    font-size: 4rem;
+    font-size: 100px;
     color: rgb(176, 126, 69);
+    animation: fadeIn 2s forwards
 }
 
 .inputTitle {
-    border: 0;
+    opacity: 0;
+    border: 4px, solid, rgb(54, 34, 13); 
     outline: 0;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 35px;
+    padding-left:1rem;
     background-color: rgb(57, 39, 19);
     font-family: 'Times New Roman', Times, serif;
     color: rgb(202, 200, 200);
+    transform: translateY(40%);
+    animation: fadeIn 2s 0.75s forwards, slide 0.75s 0.75s forwards
 }
+
+ button {
+    opacity: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    transform: translateY(40%) translateX(-140%);
+    animation: fadeIn 2s 0.75s forwards, slideSearch 0.75s 0.75s forwards
+}
+
+button img {
+    opacity: 75%;
+    width: 25px;
+    height: 25px;
+    padding-top: 5px;
+}
+
 
 .weather-card {
     border: 1px solid #ccc;
