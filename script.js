@@ -36,8 +36,38 @@ async function checkWeather(city) {
     // Reset hover classes before applying new ones
     realmHeading.classList.remove("hover-muspelheim", "hover-asgard");
 
+     // Helheim = fog/mist
+     if (data.weather[0].main === "Fog" || data.weather[0].main === "Mist") {
+        body.style.backgroundImage = "url('images/helheim.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Foggy, misty, and ominous, welcome to";
+        document.querySelector(".realmHeading").innerHTML = "Helheim";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of Death";
+
+        realmHeading.classList.add("hover-helheim");
+        miniRealm.style.marginLeft = "0.5rem";
+    }
+
+    // Ragnarok = thunderstorms
+    if (data.weather[0].main === "Thunderstorm") {
+        body.style.backgroundImage = "url('images/ragnarok.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Doom is upon us!";
+        document.querySelector(".realmHeading").innerHTML = "Ragnarok";
+        document.querySelector(".miniRealm2").innerHTML = "The End Times";
+
+        realmHeading.classList.add("hover-ragnarok");
+        miniRealm.style.marginLeft = "0.5rem";
+    }
+
     // Muspelheim = hot
-    if (Math.round(data.main.temp) > 28) {
+    else if (Math.round(data.main.temp) > 28) {
         body.style.backgroundImage = "url('images/muspelheim.png')";
         body.style.backgroundSize = "cover";
         body.style.backgroundPosition = "center";
@@ -45,13 +75,73 @@ async function checkWeather(city) {
 
         document.querySelector(".miniRealm").innerHTML = "Wow, " + Math.round(data.main.temp) + "°c? It's so hot it's looking like";
         document.querySelector(".realmHeading").innerHTML = "Muspelheim";
-        document.querySelector(".miniRealm2").innerHTML = "the Fire Realm";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of Fire";
 
         realmHeading.classList.add("hover-muspelheim");
     }
 
+    // Alfheim = mild
+    else if (Math.round(data.main.temp) > 11 && Math.round(data.main.temp) <= 19 && data.weather[0].main === "Clear") {
+        body.style.backgroundImage = "url('images/alfheim.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Bright skies and pleasant weather in";
+        document.querySelector(".realmHeading").innerHTML = "Alfheim";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of the Light Elves";
+
+        realmHeading.classList.add("hover-alfheim");
+        miniRealm.style.marginLeft = "0.5rem";
+    }
+
+    // Midgard = cool weather, or light rain
+    else if ((Math.round(data.main.temp) >= 6 && Math.round(data.main.temp) < 13 && (data.clouds.all < 80 || data.weather[0].main === "Drizzle")) || data.weather[0].number === 500) {
+        body.style.backgroundImage = "url('images/midgard.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Cool, fair weather, feels like the harmonious";
+        document.querySelector(".realmHeading").innerHTML = "Midgard";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of the Humans";
+
+        realmHeading.classList.add("hover-midgard");
+      
+    }
+
+    // Valhalla = warm, partly cloudy
+    else if ((Math.round(data.main.temp) > 19 && Math.round(data.main.temp) <= 28 && data.clouds.all < 51)) {
+        body.style.backgroundImage = "url('images/valhalla.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "A glorious day, one would be feeling like a champion of";
+        document.querySelector(".realmHeading").innerHTML = "Valhalla";
+        document.querySelector(".miniRealm2").innerHTML = "Hall of the Slain";
+
+        realmHeading.classList.add("hover-valhalla");
+      
+    }
+
+    // Vanaheim = mild, some clouds or drizzle
+    else if (Math.round(data.main.temp) >= 13 && Math.round(data.main.temp) <= 19 && (data.clouds.all < 80 || data.weather[0].main === "Drizzle")) {
+        body.style.backgroundImage = "url('images/vanaheim.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Relaxing, calm weather, just like the illustrious";
+        document.querySelector(".realmHeading").innerHTML = "Vanaheim";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of Prosperity";
+
+        realmHeading.classList.add("hover-vanaheim");
+      
+    }
+
     // Asgard = perfect day
-    else if (Math.round(data.main.temp) < 28 && Math.round(data.main.temp) > 19) {
+    else if (Math.round(data.main.temp) <= 28 && Math.round(data.main.temp) > 19 && data.weather[0].main === "Clear") {
         body.style.backgroundImage = "url('images/asgard.png')";
         body.style.backgroundSize = "cover";
         body.style.backgroundPosition = "center";
@@ -66,7 +156,7 @@ async function checkWeather(city) {
     }
 
     // Niflheim = cold
-    else if (Math.round(data.main.temp) < 8) {
+    else if (Math.round(data.main.temp) < 6 || data.weather[0].main === "Snow") {
         body.style.backgroundImage = "url('images/niflheim.png')";
         body.style.backgroundSize = "cover";
         body.style.backgroundPosition = "center";
@@ -74,12 +164,42 @@ async function checkWeather(city) {
 
         document.querySelector(".miniRealm").innerHTML = "Brrr, " + Math.round(data.main.temp) + "°c! A place this cold could only be";
         document.querySelector(".realmHeading").innerHTML = "Niflheim";
-        document.querySelector(".miniRealm2").innerHTML = "the Ice Realm";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of Ice";
 
-        realmHeading.style.color = "rgb(59, 144, 178)";
         realmHeading.classList.add("hover-niflheim");
+        miniRealm.style.marginLeft = "0.5rem";
     }
-    
+
+    // Svartaflheim = cloudy
+    else if (data.clouds.all > 50) {
+        body.style.backgroundImage = "url('images/svartalfheim.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Dark and overcast, as if one was underground in";
+        document.querySelector(".realmHeading").innerHTML = "Svartalfheim";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of the Dark Elves";
+
+        realmHeading.classList.add("hover-svartalfheim");
+        miniRealm.style.marginLeft = "0.5rem";
+    }
+
+    // Jotunheim = rainy
+    else if (data.weather[0].main === "Rain") {
+        body.style.backgroundImage = "url('images/jotunheim.png')";
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+
+        document.querySelector(".miniRealm").innerHTML = "Brace yourself for strong weather and rain";
+        document.querySelector(".realmHeading").innerHTML = "Jotunheim";
+        document.querySelector(".miniRealm2").innerHTML = "Realm of the Giants";
+
+        realmHeading.classList.add("hover-jotunheim");
+        miniRealm.style.marginLeft = "0.5rem";
+    }
+
     miniRealm2.style.width = `${realmHeading.offsetWidth}px`;
 }
 

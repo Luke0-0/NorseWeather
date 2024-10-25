@@ -197,20 +197,112 @@ button img {
     cursor: pointer;
 }
 
+.hover-muspelheim {
+    color:rgb(187, 62, 62);
+}
+
 .hover-muspelheim:hover {
-    color:rgb(140, 42, 42);
+    color:rgb(244, 112, 112);
     transition: 0.75s;
     cursor: pointer;
+}
+
+.hover-asgard {
+    color:rgb(227, 205, 62);
 }
 
 .hover-asgard:hover {
-    color:rgb(212, 193, 71);
+    color:rgb(255, 240, 139);
     transition: 0.75s;
     cursor: pointer;
 }
 
+.hover-niflheim {
+    color: rgb(73, 152, 184);
+}
+
 .hover-niflheim:hover {
-    color: rgb(180, 180, 180);
+    color: rgb(115, 208, 245);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-jotunheim {
+    color: rgb(203, 166, 63);
+}
+
+.hover-jotunheim:hover {
+    color: rgb(238, 205, 114);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-svartalfheim {
+    color: rgb(115, 169, 157);
+}
+
+.hover-svartalfheim:hover {
+    color: rgb(154, 255, 233);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-helheim {
+    color: rgb(28, 159, 120);
+}
+
+.hover-helheim:hover {
+    color: rgb(68, 230, 181);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-alfheim {
+    color: rgb(181, 255, 95);
+}
+
+.hover-alfheim:hover {
+    color: rgb(214, 255, 168);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-vanaheim {
+    color: rgb(20, 216, 37);
+}
+
+.hover-vanaheim:hover {
+    color: rgb(141, 255, 121);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-midgard {
+    color: rgb(76, 95, 193);
+}
+
+.hover-midgard:hover {
+    color: rgb(147, 177, 255);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-valhalla {
+    color: rgb(144, 20, 216);
+}
+
+.hover-valhalla:hover {
+    color: rgb(218, 149, 255);
+    transition: 0.75s;
+    cursor: pointer;
+}
+
+.hover-ragnarok {
+    color: rgb(203, 101, 17);
+}
+
+.hover-ragnarok:hover {
+    color: rgb(255, 191, 122);
     transition: 0.75s;
     cursor: pointer;
 }
