@@ -2,8 +2,10 @@
 // Norse Mythology Weather App
 
 const button = document.getElementById("button")
+const button2 = document.getElementById("button2")
 const title = document.getElementById("title")
 const search = document.getElementById("search")
+const search2 = document.getElementById("search2")
 const overlay = document.querySelector(".overlay")
 const body = document.body
 const main = document.querySelector("main")
@@ -17,7 +19,7 @@ const miniRealm2 = document.querySelector(".miniRealm2")
 const apiKey = "63f114228fabc0137a823cd2bfcb08ef";
 const apiURL = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-const searchBar = document.querySelector(".inputTitle") // get city from user input
+const searchBar = document.querySelector(".searchBar") // get city from user input
 
 // Receive the weather data from the API
 async function checkWeather(city) {
@@ -34,7 +36,7 @@ async function checkWeather(city) {
     // Change locations depending on weather
 
     // Reset hover classes before applying new ones
-    realmHeading.classList.remove("hover-muspelheim", "hover-asgard");
+    realmHeading.classList.remove("hover-muspelheim", "hover-asgard", "hover-helheim", "hover-ragnarok", "hover-alfheim", "hover-vanaheim", "hover-midgard", "hover-valhalla", "hover-niflheim", "hover-svartalfheim", "hover-jotunheim");
 
      // Helheim = fog/mist
      if (data.weather[0].main === "Fog" || data.weather[0].main === "Mist") {
@@ -58,7 +60,7 @@ async function checkWeather(city) {
         body.style.backgroundPosition = "center";
         body.style.backgroundRepeat = "no-repeat";
 
-        document.querySelector(".miniRealm").innerHTML = "Doom is upon us!";
+        document.querySelector(".miniRealm").innerHTML = "Thunder and lightning, doom is upon us!";
         document.querySelector(".realmHeading").innerHTML = "Ragnarok";
         document.querySelector(".miniRealm2").innerHTML = "The End Times";
 
@@ -78,9 +80,10 @@ async function checkWeather(city) {
         document.querySelector(".miniRealm2").innerHTML = "Realm of Fire";
 
         realmHeading.classList.add("hover-muspelheim");
+        miniRealm.style.marginLeft = "0.5rem";
     }
 
-    // Alfheim = mild
+    // Alfheim = mild and clear skies
     else if (Math.round(data.main.temp) > 11 && Math.round(data.main.temp) <= 19 && data.weather[0].main === "Clear") {
         body.style.backgroundImage = "url('images/alfheim.png')";
         body.style.backgroundSize = "cover";
@@ -110,14 +113,14 @@ async function checkWeather(city) {
       
     }
 
-    // Valhalla = warm, partly cloudy
-    else if ((Math.round(data.main.temp) > 19 && Math.round(data.main.temp) <= 28 && data.clouds.all < 51)) {
+    // Valhalla = perfect clear day
+    else if (Math.round(data.main.temp) <= 28 && Math.round(data.main.temp) > 19 && data.weather[0].main === "Clear") {
         body.style.backgroundImage = "url('images/valhalla.png')";
         body.style.backgroundSize = "cover";
         body.style.backgroundPosition = "center";
         body.style.backgroundRepeat = "no-repeat";
 
-        document.querySelector(".miniRealm").innerHTML = "A glorious day, one would be feeling like a champion of";
+        document.querySelector(".miniRealm").innerHTML = "A glorious day, one would feel like a champion of";
         document.querySelector(".realmHeading").innerHTML = "Valhalla";
         document.querySelector(".miniRealm2").innerHTML = "Hall of the Slain";
 
@@ -140,8 +143,8 @@ async function checkWeather(city) {
       
     }
 
-    // Asgard = perfect day
-    else if (Math.round(data.main.temp) <= 28 && Math.round(data.main.temp) > 19 && data.weather[0].main === "Clear") {
+    // Asgard = beautiful day
+    else if ((Math.round(data.main.temp) > 19 && Math.round(data.main.temp) <= 28 && data.clouds.all < 51)) {
         body.style.backgroundImage = "url('images/asgard.png')";
         body.style.backgroundSize = "cover";
         body.style.backgroundPosition = "center";
@@ -214,21 +217,67 @@ window.onload = function() {
 }
 
 button.addEventListener('click', () => {
+    titleTrans();
+  
+});
+
+search.addEventListener('keydown', (event) => {
+    if (event.key === "Enter") {
+        titleTrans();
+    }
+  
+});
+
+button2.addEventListener('click', () => {
+    overlay.style.transition = "opacity 0.4s ease 0s";
+    realm.style.transition = "opacity 0.2s ease 0s";
+    overlay.style.opacity = "1";
+    realm.style.opacity = "0";
+
+    checkWeather(search2.value);
+
+    setTimeout (() => {
+        overlay.style.opacity = "0";
+        realm.style.opacity = "1";
+    }, 1400);
+  
+});
+
+search2.addEventListener('keydown', (event) => {
+    if (event.key === "Enter") {
+        overlay.style.transition = "opacity 0.4s ease 0s";
+        realm.style.transition = "opacity 0.2s ease 0s";
+        overlay.style.opacity = "1";
+        realm.style.opacity = "0";
+
+        checkWeather(search2.value);
+
+        setTimeout (() => {
+            overlay.style.opacity = "0";
+            realm.style.opacity = "1";
+        }, 1400);
+    }
+});
+
+// Transition from the opening title to the main page
+function titleTrans () {
     checkWeather(searchBar.value);
 
     // Remove the intial fade in class so it does not interfere with other future effects
-    title.classList.remove("fadeIn");
     button.classList.remove("fadeIn");
     search.classList.remove("fadeIn");
+    title.classList.remove("fadeIn");
 
     // When the first search is entered, remove the search bar and move the title to the top left corner
-    title.classList.add("titleTransition");
     button.classList.add("hidden");
     search.classList.add("hidden");
+    title.classList.add("titleTransition");
+
+    search2.style.opacity = "1";
+    button2.style.opacity = "1";
     
     
     weather.style.opacity = "1";
     overlay.style.opacity = "0";
     realm.style.opacity = "1";
-  
-});
+}
