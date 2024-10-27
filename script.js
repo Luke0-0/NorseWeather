@@ -95,43 +95,27 @@ async function checkWeather(city) {
     // Reset hover classes before applying new ones
     realmHeading.classList.remove("hover-muspelheim", "hover-asgard", "hover-helheim", "hover-ragnarok", "hover-alfheim", "hover-vanaheim", "hover-midgard", "hover-valhalla", "hover-niflheim", "hover-svartalfheim", "hover-jotunheim");
 
-     // Helheim = fog/mist
-     if (data.weather[0].main === "Fog" || data.weather[0].main === "Mist") {
-        body.style.backgroundImage = "url('images/helheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+    // Determine the background image based on the weather
+    let bgImage = '';
 
+    if (data.weather[0].main === "Fog" || data.weather[0].main === "Mist") {
+        bgImage = "images/helheim.png";
         document.querySelector(".miniRealm").innerHTML = "Foggy, misty, and ominous, welcome to";
         document.querySelector(".realmHeading").innerHTML = "Helheim";
         document.querySelector(".miniRealm2").innerHTML = "Realm of Death";
-
         realmHeading.classList.add("hover-helheim");
-        miniRealm.style.marginLeft = "0.5rem";
-    }
-
-    // Ragnarok = thunderstorms
-    if (data.weather[0].main === "Thunderstorm") {
-        body.style.backgroundImage = "url('images/ragnarok.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
-
+    } 
+    else if (data.weather[0].main === "Thunderstorm") {
+        bgImage = "images/ragnarok.png";
         document.querySelector(".miniRealm").innerHTML = "Thunder and lightning, doom is upon us!";
         document.querySelector(".realmHeading").innerHTML = "Ragnarok";
         document.querySelector(".miniRealm2").innerHTML = "The End Times";
-
         realmHeading.classList.add("hover-ragnarok");
-        miniRealm.style.marginLeft = "0.5rem";
     }
 
     // Jotunheim = rainy
     else if (data.weather[0].main === "Rain" && data.weather[0].number != 500) {
-        body.style.backgroundImage = "url('images/jotunheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
-
+        bgImage = "images/jotunheim.png"
         document.querySelector(".miniRealm").innerHTML = "Brace yourself for strong weather and rain";
         document.querySelector(".realmHeading").innerHTML = "Jotunheim";
         document.querySelector(".miniRealm2").innerHTML = "Realm of the Giants";
@@ -142,25 +126,16 @@ async function checkWeather(city) {
 
     // Muspelheim = hot
     else if (Math.round(data.main.temp) > 28) {
-        body.style.backgroundImage = "url('images/muspelheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
-
+        bgImage = "images/muspelheim.png";
         document.querySelector(".miniRealm").innerHTML = "Wow, " + Math.round(data.main.temp) + "°c? It's so hot it's looking like";
         document.querySelector(".realmHeading").innerHTML = "Muspelheim";
         document.querySelector(".miniRealm2").innerHTML = "Realm of Fire";
-
         realmHeading.classList.add("hover-muspelheim");
-        miniRealm.style.marginLeft = "0.5rem";
     }
 
     // Niflheim = cold
     else if (Math.round(data.main.temp) < 6 || data.weather[0].main === "Snow") {
-        body.style.backgroundImage = "url('images/niflheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/niflheim.png"
 
         document.querySelector(".miniRealm").innerHTML = "Brrr, " + Math.round(data.main.temp) + "°c! A place this cold could only be";
         document.querySelector(".realmHeading").innerHTML = "Niflheim";
@@ -172,10 +147,7 @@ async function checkWeather(city) {
 
     // Svartaflheim = cloudy
     else if (data.clouds.all > 50) {
-        body.style.backgroundImage = "url('images/svartalfheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/svartalfheim.png"
 
         document.querySelector(".miniRealm").innerHTML = "Dark and overcast, as if one was underground in";
         document.querySelector(".realmHeading").innerHTML = "Svartalfheim";
@@ -187,10 +159,7 @@ async function checkWeather(city) {
 
     // Alfheim = mild and clear skies
     else if (Math.round(data.main.temp) > 11 && Math.round(data.main.temp) <= 19 && data.weather[0].main === "Clear") {
-        body.style.backgroundImage = "url('images/alfheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/alfheim.png"
 
         document.querySelector(".miniRealm").innerHTML = "Bright skies and pleasant weather in";
         document.querySelector(".realmHeading").innerHTML = "Alfheim";
@@ -202,10 +171,7 @@ async function checkWeather(city) {
 
     // Midgard = cool weather, or light rain
     else if ((Math.round(data.main.temp) >= 6 && Math.round(data.main.temp) < 13 && (data.clouds.all < 80 || data.weather[0].main === "Drizzle")) || data.weather[0].number === 500) {
-        body.style.backgroundImage = "url('images/midgard.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/midgard.png"
 
         document.querySelector(".miniRealm").innerHTML = "Cool, fair weather, feels like the harmonious";
         document.querySelector(".realmHeading").innerHTML = "Midgard";
@@ -217,10 +183,7 @@ async function checkWeather(city) {
 
     // Valhalla = perfect clear day
     else if (Math.round(data.main.temp) <= 28 && Math.round(data.main.temp) > 19 && data.weather[0].main === "Clear") {
-        body.style.backgroundImage = "url('images/valhalla.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/valhalla.png"
 
         document.querySelector(".miniRealm").innerHTML = "A glorious day, one would feel like a champion of";
         document.querySelector(".realmHeading").innerHTML = "Valhalla";
@@ -232,10 +195,7 @@ async function checkWeather(city) {
 
     // Vanaheim = mild, some clouds or drizzle
     else if (Math.round(data.main.temp) >= 13 && Math.round(data.main.temp) <= 19 && (data.clouds.all < 80 || data.weather[0].main === "Drizzle" || data.weather[0].number === 500)) {
-        body.style.backgroundImage = "url('images/vanaheim.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/vanaheim.png"
 
         document.querySelector(".miniRealm").innerHTML = "Relaxing, calm weather, just like the illustrious";
         document.querySelector(".realmHeading").innerHTML = "Vanaheim";
@@ -247,10 +207,7 @@ async function checkWeather(city) {
 
     // Asgard = beautiful day
     else if ((Math.round(data.main.temp) > 19 && Math.round(data.main.temp) <= 28 && (data.clouds.all < 51 && data.clouds.all > 0))) {
-        body.style.backgroundImage = "url('images/asgard.png')";
-        body.style.backgroundSize = "cover";
-        body.style.backgroundPosition = "center";
-        body.style.backgroundRepeat = "no-repeat";
+        bgImage = "images/asgard.png"
 
         document.querySelector(".miniRealm").innerHTML = "A day fit for the gods, it's like";
         document.querySelector(".realmHeading").innerHTML = "Asgard";
@@ -261,6 +218,46 @@ async function checkWeather(city) {
     }
 
     miniRealm2.style.width = `${realmHeading.offsetWidth}px`;
+
+    // Clear existing background
+    body.style.backgroundImage = '';
+
+    // Function to set the background image with lazy loading
+    const setLazyBackgroundImage = (imageUrl) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = imageUrl;
+            img.onload = () => {
+                body.style.backgroundImage = `url(${imageUrl})`;
+                body.style.backgroundSize = "cover";
+                body.style.backgroundPosition = "center";
+                body.style.backgroundRepeat = "no-repeat";
+                resolve();
+            };
+        });
+    };
+
+    // Create a target element for the observer
+    const targetElement = document.createElement('div');
+    targetElement.style.height = '1px'; // This can be any small height
+    document.body.appendChild(targetElement);
+
+    // Use the Intersection Observer to lazy load the background image
+    const observer = new IntersectionObserver(async (entries) => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                // Load the background image
+                await setLazyBackgroundImage(bgImage);
+                observer.unobserve(entry.target);
+            }
+        }
+    });
+
+    // Start observing the target element
+    observer.observe(targetElement);
+    await setLazyBackgroundImage(bgImage);
+    overlay.style.opacity = "0";
+    realm.style.opacity = "1";
 }
 
 
@@ -300,7 +297,7 @@ button2.addEventListener('click', async () => {
     const isValidCity = await checkCity(search2.value);
 
     if (isValidCity) {
-        overlay.style.transition = "opacity 0.4s ease 0s";
+        overlay.style.transition = "opacity 0.6s ease 0s";
         realm.style.transition = "opacity 0.2s ease 0s";
         overlay.style.opacity = "1";
         realm.style.opacity = "0";
@@ -308,10 +305,7 @@ button2.addEventListener('click', async () => {
 
         checkWeather(search2.value);
 
-        setTimeout (() => {
-            overlay.style.opacity = "0";
-            realm.style.opacity = "1";
-        }, 700);
+        search2.value=""; // reset search value
     }
   
 });
@@ -322,7 +316,7 @@ search2.addEventListener('keydown', async (event) => {
         const isValidCity = await checkCity(search2.value);
 
         if (isValidCity) {
-            overlay.style.transition = "opacity 0.4s ease 0s";
+            overlay.style.transition = "opacity 0.25s ease 0s";
             realm.style.transition = "opacity 0.2s ease 0s";
             overlay.style.opacity = "1";
             realm.style.opacity = "0";
@@ -330,10 +324,7 @@ search2.addEventListener('keydown', async (event) => {
 
             checkWeather(search2.value);
 
-            setTimeout (() => {
-                overlay.style.opacity = "0";
-                realm.style.opacity = "1";
-            }, 700);
+            search2.value=""; // reset search value
         }
     }
 });
