@@ -56,15 +56,6 @@ main {
     overflow: hidden;
 }
 
-@keyframes slide {
-    100% { transform: translateY(0%); }
-
-}
-
-@keyframes slideSearch {
-    100% { transform: translateY(0%) translateX(-140%); }
-
-}
 
 .title {
     position: relative;
@@ -95,7 +86,6 @@ main {
 
 
 .searchBar {
-    position: relative;
     opacity: 0;
     border: 4px solid rgb(20, 17, 17); 
     outline: 0;
@@ -105,10 +95,31 @@ main {
     background-color: rgb(47, 50, 59);
     font-family: "norseSmall";
     color: rgb(202, 200, 200);
-    transform: translateY(40%);
-    transition: transform 0.75s ease;
-    animation: slide 0.75s 1.25s forwards;
+    transition: opacity 0.75s ease;
     margin-left: 2rem;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes shakeButton {
+    0%, 100% { transform: translateX(-50px); }
+    20%, 60% { transform: translateX(-55px); }
+    40%, 80% { transform: translateX(-45px); }
+}
+
+/* Animation for the search bar to shake whenever an invalid city is entered */
+.shake {
+    position: relative;
+    animation: shake 0.5s ease;
+}
+
+.shakeButton {
+    position: relative;
+    animation: shakeButton 0.5s ease;
 }
 
  button {
@@ -120,9 +131,9 @@ main {
     cursor: pointer;
     width: 40px;
     height: 40px;
-    transform: translateY(40%) translateX(-140%);
-    transition: transform 0.75s ease;
-    animation: slideSearch 0.75s 1.25s forwards
+    transition: opacity 0.75s ease;
+    transform: translateX(-50px);
+
 }
 
 button img {

@@ -368,6 +368,22 @@ async function checkCity(city) {
     if (!response.ok) {
         invalidLocation.style.opacity = "1"; 
         invalidLocation2.style.opacity = "1"; 
+
+        // Add shake animation class
+        void search.offsetWidth;
+        search.classList.add("shake");
+        search2.classList.add("shake");
+        button.classList.add("shakeButton");
+        button2.classList.add("shakeButton");
+
+        // Remove shake class after animation ends
+        setTimeout(() => {
+            search.classList.remove("shake");
+            search2.classList.remove("shake");
+            button.classList.remove("shakeButton");
+            button2.classList.remove("shakeButton");
+        }, 500);
+        
         return false;
     }
     else {
