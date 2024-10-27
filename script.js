@@ -18,6 +18,13 @@ const weatherIcon = document.querySelector(".weather-icon");
 const invalidLocation = document.querySelector(".invalidLocation")
 const invalidLocation2 = document.getElementById("invalidLocation2");
 
+// Preload every image so it loads faster
+const imageUrls = ["images/jotunheim.png", "images/muspelheim.png", "images/niflheim.png", "images/svartalfheim.png", "images/alfheim.png", "images/vanaheim.png", "images/asgard.png", "images/midgard.png"]; 
+imageUrls.forEach((url) => {
+    const img = new Image();
+    img.src = url;
+});
+
 // API info
 const apiKey = "63f114228fabc0137a823cd2bfcb08ef";
 const apiURL = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
@@ -98,13 +105,17 @@ async function checkWeather(city) {
     // Determine the background image based on the weather
     let bgImage = '';
 
+    // Helheim = fog
     if (data.weather[0].main === "Fog" || data.weather[0].main === "Mist") {
         bgImage = "images/helheim.png";
         document.querySelector(".miniRealm").innerHTML = "Foggy, misty, and ominous, welcome to";
         document.querySelector(".realmHeading").innerHTML = "Helheim";
         document.querySelector(".miniRealm2").innerHTML = "Realm of Death";
         realmHeading.classList.add("hover-helheim");
+        miniRealm.style.marginLeft = "0.5rem";
     } 
+
+    // Ragnarok = Thunderstorm
     else if (data.weather[0].main === "Thunderstorm") {
         bgImage = "images/ragnarok.png";
         document.querySelector(".miniRealm").innerHTML = "Thunder and lightning, doom is upon us!";
@@ -178,6 +189,7 @@ async function checkWeather(city) {
         document.querySelector(".miniRealm2").innerHTML = "Realm of the Humans";
 
         realmHeading.classList.add("hover-midgard");
+        miniRealm.style.marginLeft = "0.5rem";
       
     }
 
@@ -190,6 +202,7 @@ async function checkWeather(city) {
         document.querySelector(".miniRealm2").innerHTML = "Hall of the Slain";
 
         realmHeading.classList.add("hover-valhalla");
+        miniRealm.style.marginLeft = "0.5rem";
       
     }
 
@@ -202,6 +215,7 @@ async function checkWeather(city) {
         document.querySelector(".miniRealm2").innerHTML = "Realm of Prosperity";
 
         realmHeading.classList.add("hover-vanaheim");
+        miniRealm.style.marginLeft = "0.5rem";
       
     }
 
@@ -209,7 +223,7 @@ async function checkWeather(city) {
     else if ((Math.round(data.main.temp) > 19 && Math.round(data.main.temp) <= 28 && (data.clouds.all < 51 && data.clouds.all > 0))) {
         bgImage = "images/asgard.png"
 
-        document.querySelector(".miniRealm").innerHTML = "A day fit for the gods, it's like";
+        document.querySelector(".miniRealm").innerHTML = "A day fit for the gods, just like";
         document.querySelector(".realmHeading").innerHTML = "Asgard";
         document.querySelector(".miniRealm2").innerHTML = "Realm of the Aesir";
 
@@ -256,8 +270,10 @@ async function checkWeather(city) {
     // Start observing the target element
     observer.observe(targetElement);
     await setLazyBackgroundImage(bgImage);
-    overlay.style.opacity = "0";
-    realm.style.opacity = "1";
+    setTimeout (() => {
+        overlay.style.opacity = "0";
+        realm.style.opacity = "1";
+    }, 300);
 }
 
 
