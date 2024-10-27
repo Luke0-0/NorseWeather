@@ -15,6 +15,8 @@ const realmHeading = document.querySelector(".realmHeading")
 const miniRealm = document.querySelector(".miniRealm")
 const miniRealm2 = document.querySelector(".miniRealm2")
 const weatherIcon = document.querySelector(".weather-icon");
+const invalidLocation = document.querySelector(".invalidLocation")
+const invalidLocation2 = document.getElementById("invalidLocation2");
 
 // API info
 const apiKey = "63f114228fabc0137a823cd2bfcb08ef";
@@ -25,6 +27,13 @@ const searchBar = document.querySelector(".searchBar") // get city from user inp
 // Receive the weather data from the API
 async function checkWeather(city) {
     const response = await fetch(apiURL+ city + `&appid=${apiKey}`);
+
+    // Clear previous weather data
+    document.querySelector(".city").innerHTML = "";
+    document.querySelector(".temp").innerHTML = "";
+    document.querySelector(".humidity").innerHTML = "";
+    document.querySelector(".wind").innerHTML = "";
+
     var data = await response.json();
 
     console.log(data);
@@ -264,35 +273,33 @@ window.onload = function() {
     }, 1500)
 }
 
-button.addEventListener('click', () => {
-    titleTrans();
-  
-});
+button.addEventListener('click', async () => {
+    invalidLocation.style.opacity = "0";
+    const isValidCity = await checkCity(search.value);
 
-search.addEventListener('keydown', (event) => {
-    if (event.key === "Enter") {
+    if (isValidCity) {
         titleTrans();
     }
-  
+
 });
 
-button2.addEventListener('click', () => {
-    overlay.style.transition = "opacity 0.4s ease 0s";
-    realm.style.transition = "opacity 0.2s ease 0s";
-    overlay.style.opacity = "1";
-    realm.style.opacity = "0";
-
-    checkWeather(search2.value);
-
-    setTimeout (() => {
-        overlay.style.opacity = "0";
-        realm.style.opacity = "1";
-    }, 1400);
-  
-});
-
-search2.addEventListener('keydown', (event) => {
+search.addEventListener('keydown', async (event) => {
     if (event.key === "Enter") {
+        invalidLocation.style.opacity = "0";
+        const isValidCity = await checkCity(search.value);
+
+        if (isValidCity) {
+            titleTrans();
+        }
+
+    }
+});
+
+button2.addEventListener('click', async () => {
+    invalidLocation2.style.opacity = "0";
+    const isValidCity = await checkCity(search2.value);
+
+    if (isValidCity) {
         overlay.style.transition = "opacity 0.4s ease 0s";
         realm.style.transition = "opacity 0.2s ease 0s";
         overlay.style.opacity = "1";
@@ -306,10 +313,33 @@ search2.addEventListener('keydown', (event) => {
             realm.style.opacity = "1";
         }, 700);
     }
+  
+});
+
+search2.addEventListener('keydown', async (event) => {
+    if (event.key === "Enter") {
+        invalidLocation2.style.opacity = "0";
+        const isValidCity = await checkCity(search2.value);
+
+        if (isValidCity) {
+            overlay.style.transition = "opacity 0.4s ease 0s";
+            realm.style.transition = "opacity 0.2s ease 0s";
+            overlay.style.opacity = "1";
+            realm.style.opacity = "0";
+            body.style.transition = "0.1s ease 0s";
+
+            checkWeather(search2.value);
+
+            setTimeout (() => {
+                overlay.style.opacity = "0";
+                realm.style.opacity = "1";
+            }, 700);
+        }
+    }
 });
 
 // Transition from the opening title to the main page
-function titleTrans () {
+function titleTrans() {
     checkWeather(searchBar.value);
 
     // Remove the intial fade in class so it does not interfere with other future effects
@@ -325,8 +355,24 @@ function titleTrans () {
     search2.style.opacity = "1";
     button2.style.opacity = "1";
     
-    
     weather.style.opacity = "1";
     overlay.style.opacity = "0";
     realm.style.opacity = "1";
+    invalidLocation.remove();
+}
+
+// Check if city being searched is valid
+async function checkCity(city) {
+    const response = await fetch(apiURL+ city + `&appid=${apiKey}`);
+
+    if (!response.ok) {
+        invalidLocation.style.opacity = "1"; 
+        invalidLocation2.style.opacity = "1"; 
+        return false;
+    }
+    else {
+        invalidLocation.style.opacity = "0";
+        invalidLocation2.style.opacity = "0"; 
+        return true;
+    }
 }
