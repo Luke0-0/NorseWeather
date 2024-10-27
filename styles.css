@@ -38,21 +38,10 @@ body {
     height: 100vh;
 }
 
+/* Put up an overlay for when locations are switching to make it look smooth */
 .overlayShow {
     opacity: 1;
     transition: opacity 0.5s ease 0s;
-}
-
-/* Simple layout for header, main content, and footer */
-header {
-    opacity: 0;
-    display: flex;
-    font-family: "greek";
-    background-image: linear-gradient(rgb(109, 70, 19), rgb(158, 110, 56));
-    padding: 10px;
-    color: white;
-    font-size: 10px;
-    height: 3rem;
 }
 
 .input {
@@ -96,7 +85,7 @@ main {
     font-size: 30px; /* Shrink the font */
     transform: translate(-50%, -50%); /* Move it to the top-left */
     margin: auto;
-    margin-left: 10rem;
+    margin-left: 11rem;
     margin-top: 1.5rem;
     transition: 1s;
     transition-delay: 1.8s;
@@ -167,6 +156,21 @@ button img {
     left: 0;
     transition: opacity 1s ease 3s;
     text-shadow: 2px 2px rgb(0, 0, 0);
+}
+
+.temp {
+    display: inline-block;
+    margin-bottom: -5rem;
+    margin-top: -25rem;
+    font-size: 40px;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
+    transform: translateY(30%);
+    margin-left: 1.5rem;
+    margin-top: -3rem;
 }
 
 .realmTitleBox {
@@ -325,14 +329,4 @@ button img {
     text-align: right;
     
   
-}
-
-footer {
-    background-image: linear-gradient(rgb(109, 70, 19), rgb(176, 126, 69));
-    color: white;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    height: 2rem;
 }
